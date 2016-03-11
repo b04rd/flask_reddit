@@ -41,15 +41,18 @@
           <ul class="nav navbar-nav">
               <li>
                   <a class="brand-nav" href="/">
-                      {% if cur_subreddit is defined and cur_subreddit.id != 1 %}
-                          {{ cur_subreddit.name }}
-                      {% else %} 
                           {{ config.BRAND }}
-                      {% endif %}
                   </a>
               </li>
+              {% if cur_subreddit is defined and cur_subreddit.id != 1 %}
+                  <li>
+                      <a href="/r/{{ cur_subreddit.name }}">
+                          {{ cur_subreddit.name }}
+                      </a>
+                  </li>         
+              {% endif %}
               <li>
-                  <a href="/?trending=true">Показать треды</a>
+                  <a href="/?trending=true">Популярные треды</a>
               </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
