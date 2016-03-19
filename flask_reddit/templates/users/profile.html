@@ -11,9 +11,14 @@
                     Треды: <span class="red">{{ current_user.threads.all()|length() }}</span>, 
                     Комментарии: <span class="red">{{ current_user.comments.all()|length() }}</span><br> 
                     </p>
-                    <i class="glyphicon glyphicon-envelope"></i>&emsp;{{ current_user.email }}
-                    <br>
-
+                    <p class="trophy-room">
+                    Карма тредов: {{ current_user.get_thread_karma() }} <span class="karma-star">★</span>, 
+                    Карма комментариев: {{ current_user.get_comment_karma() }} <span class="karma-star">★</span><br> 
+                    </p>
+                    {% if user is defined and user != None %}
+                        <i class="glyphicon glyphicon-envelope"></i>&emsp;{{ current_user.email }}
+                        <br>
+                    {% endif %}
                     <u><h4 class="profile-label">Недавние треды</h4></u>
                     {% for thread in current_user.threads.all()[-7:]|reverse  %}
                         <p>
@@ -44,10 +49,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block user_dashboard %}
-    <h3 class="dash-text highlight">Карма треда: <span class="red">{{ current_user.get_thread_karma() }}</span></h3>
-    <h3 class="dash-text highlight">Карма комментария: <span class="red">{{ current_user.get_comment_karma() }}</span></h3>
-    <br>
 {% endblock %}
