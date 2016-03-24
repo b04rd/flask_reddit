@@ -80,10 +80,10 @@ class Thread(db.Model):
         """
         if order_by == 'timestamp':
             return self.comments.filter_by(depth=1).\
-                order_by(db.desc(Comment.created_on)).all()[:THREAD.MAX_COMMENTS]
+                order_by(db.asc(Comment.created_on)).all()[:THREAD.MAX_COMMENTS]
         else:
             return self.comments.filter_by(depth=1).\
-                order_by(db.desc(Comment.created_on)).all()[:THREAD.MAX_COMMENTS]
+                order_by(db.asc(Comment.created_on)).all()[:THREAD.MAX_COMMENTS]
 
     def get_status(self):
         """
@@ -266,10 +266,10 @@ class Comment(db.Model):
         default order by timestamp
         """
         if order_by == 'timestamp':
-            return self.children.order_by(db.desc(Comment.created_on)).\
+            return self.children.order_by(db.asc(Comment.created_on)).\
                 all()[:THREAD.MAX_COMMENTS]
         else:
-            return self.comments.order_by(db.desc(Comment.created_on)).\
+            return self.comments.order_by(db.asc(Comment.created_on)).\
                 all()[:THREAD.MAX_COMMENTS]
 
     def get_margin_left(self):
