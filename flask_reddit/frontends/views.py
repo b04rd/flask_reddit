@@ -82,6 +82,14 @@ def search():
     query = request.args.get('query')
     rs = search_module.search(query, orderby='creation', search_title=True,
             search_text=True, limit=100)
+
+    if not rs:
+        flash(u'Поисковый запрос слишком короткий!', 'danger')
+        return render_template('home.html', user=g.user,
+                               subreddits=get_subreddits(),
+                               cur_subreddit=home_subreddit(),
+                               thread_paginator=process_thread_paginator())
+
     thread_paginator = process_thread_paginator(rs=rs)
     rs = rs.all()
     num_searches = len(rs)

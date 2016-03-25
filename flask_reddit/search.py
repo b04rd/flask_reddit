@@ -6,6 +6,8 @@ on user queries.
 from flask_reddit.threads.models import Thread, Comment
 from flask_reddit import db
 
+SHORTEST_QUERY = 4
+
 def search(query, orderby='creation', filter_user=None, search_title=True,
             search_text=True, subreddit=None, limit=100):
     """
@@ -14,6 +16,8 @@ def search(query, orderby='creation', filter_user=None, search_title=True,
     if not query:
         return []
     query = query.strip()
+    if len(query) < SHORTEST_QUERY:
+        return None
     base_query = '%' + query + '%'
 
     base_qs = Thread.query
