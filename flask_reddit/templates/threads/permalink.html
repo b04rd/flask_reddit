@@ -64,7 +64,7 @@
 <div class="row comments-tree">
     {%- for comment in thread.get_comments() recursive %}
         <div class="row comments-element" style="margin-left:{{ comment.get_margin_left() }}" 
-            name="{{ comment.id }}"> 
+            name="{{ comment.id }}-{{ loop.depth }}">
             <p class="comment-body">{{ comment.text }}</p>
             <div class="post-listing-meta">
                 от: <a href="{{ url_for('users.home_page', username=comment.user.username) }}">
@@ -101,8 +101,8 @@ $(document).ready(function() {
         var $parent_comment = $(this).parent('div.comments-element');
         // the logic is funky because we are using string booleans...
         if (not_nested == 'false') {
-            // it is nested 
-            parent_id = $(this).parent('div.comments-element').attr('name');
+            // it is nested
+            parent_id = $(this).parent('div.comments-element').attr('name').split('-')[0];
             $comment_box = $(this).parent('div.comments-element').children(
                 'textarea.nested-comment-text-box')
             $button_box = $(this).parent('div.comments-element').children(
@@ -123,6 +123,31 @@ $(document).ready(function() {
         if (comment_text == null || comment_text == '') {
             alert("Введите текст сообщения!");
             return;
+        }
+
+        // Detect the last comment in branch. Logic is the following:
+        // iterate over comments lower that the answered one and check level.
+        // Store previous object when current_level <= level.
+        if (not_nested == 'false') {
+            var get_level = function(comment) {
+                return Number(comment.attr('name').split('-')[1]);
+            }
+            var $current_comment = $parent_comment;
+            var $last_comment_in_level = $parent_comment;
+            var parent_level = get_level($parent_comment);
+            var current_level = parent_level;
+
+            if (!($parent_comment.is(':last-child'))) {
+                while(true) {
+                    current_level = get_level($current_comment.next());
+                    if (current_level <= parent_level) {
+                        $last_comment_in_level = $current_comment;
+                        break;
+                    } else {
+                        $current_comment = $current_comment.next();
+                    }
+                }
+            }
         }
 
         var thread_id = "{{ thread.id }}";
@@ -148,9 +173,9 @@ $(document).ready(function() {
                         'nested-submit-comment-button">Отправить</button>';
 
                     if (not_nested == 'true') {
-                        $('div.comments-tree').prepend(write_string);
+                        $('div.comments-tree').append(write_string);
                     } else {
-                        $parent_comment.after(write_string);
+                        $last_comment_in_level.after(write_string);
                     }
                 }, 'json'
             );              
