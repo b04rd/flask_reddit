@@ -9,7 +9,7 @@ from flask_reddit import db
 from flask_reddit import search as search_module # don't override function name
 from flask_reddit.users.forms import RegisterForm, LoginForm
 from flask_reddit.users.models import User
-from flask_reddit.threads.models import Thread
+from flask_reddit.threads.models import Thread, Comment
 from flask_reddit.subreddits.models import Subreddit
 from flask_reddit.users.decorators import requires_login
 
@@ -158,3 +158,12 @@ def register():
 
     return render_template("register.html", form=form, next=next)
 
+@mod.route('/contacts/', methods=['GET'])
+def contacts():
+    user_num = User.query.count()
+    comment_num = Comment.query.count()
+    thread_num = Thread.query.count()
+    subreddit_num = Subreddit.query.filter(Subreddit.id != 1).count()
+    return render_template("contacts.html", user=g.user,
+                           comment_num=comment_num, thread_num=thread_num,
+                           subreddit_num=subreddit_num, user_num=user_num)
