@@ -119,7 +119,7 @@ $(document).ready(function() {
             comment_text = $comment_box.val();
             $comment_box.val('');
         }
-        
+
         if (comment_text == null || comment_text == '') {
             alert("Введите текст сообщения!");
             return;
@@ -139,6 +139,11 @@ $(document).ready(function() {
 
             if (!($parent_comment.is(':last-child'))) {
                 while(true) {
+                    if ($current_comment.is(':last-child')) {
+                        $last_comment_in_level = $current_comment;
+                        break;
+                    }
+
                     current_level = get_level($current_comment.next());
                     if (current_level <= parent_level) {
                         $last_comment_in_level = $current_comment;
@@ -148,6 +153,7 @@ $(document).ready(function() {
                     }
                 }
             }
+            console.log($last_comment_in_level.attr('name'))
         }
 
         var thread_id = "{{ thread.id }}";
@@ -159,7 +165,7 @@ $(document).ready(function() {
                 comment_text: comment_text },
                 function(response) {
                     var write_string = 
-                        '<div class="row comments-element" name="'+ response.comment_id + '"' + 
+                        '<div class="row comments-element" name="'+ response.comment_id + '-' + (parent_level+1) + '"' +
                         'style="margin-left:' + response.margin_left + '">' +
                         '<p class="comment-body">' + response.comment_text + '</p>' + 
                         '<div class="post-listing-meta">' + 
@@ -178,15 +184,27 @@ $(document).ready(function() {
                         $last_comment_in_level.after(write_string);
                     }
                 }, 'json'
-            );              
+            );
         {% else %}
             alert("Авторизуйтесь!");
         {% endif %}
     });
 
     $(document).on('click', 'a.comment-reply', function(e) {
-        $(this).parent().parent().children('textarea.nested-comment-text-box').toggle();
-        $(this).parent().parent().children('button.nested-submit-comment-button').toggle();
+        var $this_comment = $(this).parent().parent();
+
+        // kill all other textboxes, if opening one
+        if($this_comment.children('textarea.nested-comment-text-box').is(':hidden')) {
+            $this_comment.parent().find('div.comments-element').each(function() {
+                if ($(this).attr('name') != $this_comment.attr('name')) {
+                    $(this).children('textarea.nested-comment-text-box').hide();
+                    $(this).children('button.nested-submit-comment-button').hide();
+                }
+            })
+        }
+
+        $this_comment.children('textarea.nested-comment-text-box').toggle();
+        $this_comment.children('button.nested-submit-comment-button').toggle();
     });
     //
     //
