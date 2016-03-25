@@ -203,7 +203,7 @@ class Thread(db.Model):
         setting it to run literally as someone posts a thread. but once again,
         this repo is just a simple example of a reddit-like crud application!
         """
-        DEFAULT_THUMBNAIL = 'http://reddit.lucasou.com/static/imgs/reddit-camera.png'
+        DEFAULT_THUMBNAIL = '/static/imgs/reddit-camera.png'
         if self.link:
             thumbnail = media.get_top_img(self.link)
             if not thumbnail:
@@ -212,6 +212,13 @@ class Thread(db.Model):
             thumbnail = DEFAULT_THUMBNAIL
         self.thumbnail = thumbnail
         db.session.commit()
+
+    def show_thumbnail(self):
+        """Workaround for links to reddit.lucasou.com (currently down) in thread thumbnails."""
+        if 'reddit.lucasou.com' in self.thumbnail:
+            return '/static/imgs/reddit-camera.png'
+        else:
+            return self.thumbnail
 
 
 class Comment(db.Model):
