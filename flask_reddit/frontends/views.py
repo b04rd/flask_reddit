@@ -18,6 +18,7 @@ mod = Blueprint('frontends', __name__, url_prefix='')
 @mod.before_request
 def before_request():
     g.user = None
+    session.permanent = True
     if 'user_id' in session:
         g.user = User.query.get(session['user_id'])
 

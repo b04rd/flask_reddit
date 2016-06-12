@@ -27,7 +27,7 @@
         {% endif %}
         создан {{ thread.pretty_date('created') }},
         пользователем <a href="{{ url_for('users.home_page', username=thread.user.username) }}">
-            {{ thread.user.username }}.</a> в <a href="{{ url_for('subreddits.permalink', 
+            {{ thread.user.username }}</a> в <a href="{{ url_for('subreddits.permalink', 
                 subreddit_name=thread.subreddit.name) }}">{{ thread.subreddit.name }}</a>
         <br>
         <br>

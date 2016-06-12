@@ -48,6 +48,7 @@ div.spacer {
 
 .comment-body {
     margin-bottom: 2px;
+    color: #000;
 }
 
 .comments-element {
@@ -148,6 +149,7 @@ div.spacer {
 
 .thread-text {
     margin: 0 0 0 -30px;
+    color: #000;
 }
 
 .listing-title {

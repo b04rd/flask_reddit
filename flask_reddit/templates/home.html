@@ -38,7 +38,7 @@
 
               <div class="post-listing-meta">
                   <a href="{{ config.ROOT_URL }}/threads/{{ thread.subreddit.name }}/{{ thread.id }}/{{ thread.title|truncate(100)|replace(' ', '_') }}">
-                  {{ thread.comments.all()|length() }} комментарии</a>,
+                  {{ thread.comments.all()|length() }} комментариев</a>,
                   {{ thread.pretty_date() }}, от 
                   <a href="{{ url_for('users.home_page', 
                         username=thread.user.username) }}">
