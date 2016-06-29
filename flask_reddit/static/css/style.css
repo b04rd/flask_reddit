@@ -50,6 +50,9 @@ div.spacer {
     margin-bottom: 2px;
     color: #000;
 }
+.comment-body a {
+    text-decoration: underline;
+}
 
 .comments-element {
     margin-bottom: 10px;
@@ -150,6 +153,9 @@ div.spacer {
 .thread-text {
     margin: 0 0 0 -30px;
     color: #000;
+}
+.thread-text a {
+    text-decoration: underline;
 }
 
 .listing-title {

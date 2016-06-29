@@ -31,7 +31,7 @@
                 subreddit_name=thread.subreddit.name) }}">{{ thread.subreddit.name }}</a>
         <br>
         <br>
-        <p class="thread-text">{{ thread.text }}</p>
+        <div class="thread-text">{{ thread.text|urlize|linebreaksbr }}</div>
     </div>
 </div>
 
@@ -65,7 +65,7 @@
     {%- for comment in thread.get_comments() recursive %}
         <div class="row comments-element" style="margin-left:{{ comment.get_margin_left() }}" 
             name="{{ comment.id }}-{{ loop.depth }}">
-            <p class="comment-body">{{ comment.text }}</p>
+            <div class="comment-body">{{ comment.text|urlize|linebreaksbr }}</div>
             <div class="post-listing-meta">
                 от: <a href="{{ url_for('users.home_page', username=comment.user.username) }}">
                     {{ comment.user.username }}</a> {{ comment.pretty_date() }} 

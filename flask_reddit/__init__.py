@@ -4,6 +4,7 @@
 from flask import Flask, render_template, url_for, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug.routing import BaseConverter
+from .custom_filters import linebreaksbr, linebreaks
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -17,6 +18,9 @@ class RegexConverter(BaseConverter):
         self.regex = items[0]
 
 app.url_map.converters['regex'] = RegexConverter
+
+app.jinja_env.filters['linebreaks'] = linebreaks
+app.jinja_env.filters['linebreaksbr'] = linebreaksbr
 
 @app.errorhandler(404)
 def not_found(error):
