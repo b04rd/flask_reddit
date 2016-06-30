@@ -102,13 +102,11 @@ div.spacer {
 .nested-comment-text-box {
     display: none;
     width: 250px;
+    color: #000;
 }
 
 .nested-submit-comment-button {
     display: none;
-    width: 50px;
-    height: 25px;
-    font-size: 9px;
     margin-top: -19px;
     margin-left: 5px;
 }
@@ -188,6 +186,7 @@ div.spacer {
 .thread-comment-box {
     height: 70px;
     margin-bottom: 10px;
+    color: #000;
 }
 
 .logout-button {
