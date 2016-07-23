@@ -185,6 +185,8 @@ $(document).ready(function() {
                     }
                 }, 'json'
             );
+            window.location.reload(true); // UGLY HACK: to redraw linebreaks,
+                                          // just reload the whole page
         {% else %}
             alert("Авторизуйтесь!");
         {% endif %}

@@ -49,6 +49,7 @@ div.spacer {
 .comment-body {
     margin-bottom: 2px;
     color: #000;
+    background-color: #f7f7f7;
 }
 .comment-body a {
     text-decoration: underline;
