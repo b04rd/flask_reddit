@@ -21,7 +21,7 @@
     </div>
     <div class="col-lg-9 listing-text">
         {% if thread.link != "" %}
-        <a href="{{ thread.link }}"><h2 class="listing-title">{{ thread.title }}</h2></a>
+        <a href="{{ thread.link }}"><h2 class="listing-title">{{ thread.title }}<small> (url)</small></h2></a>
         {% else %}
         <h2 class="listing-title">{{ thread.title }}</h2>
         {% endif %}
