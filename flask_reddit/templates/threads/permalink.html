@@ -2,7 +2,7 @@
 
 {% block left %}
 <div name="{{ thread.id }}" class="row listing-row thread-permalink">
-    <div class="col-lg-1 listing-vote-box">
+    <div class="col-lg-1 col-md-1 col-sm-1 listing-vote-box">
         <div class="">
             {% if user is defined and user != None and thread.has_voted(user.id) %}
                 <a data-voted="true" style="color:#eb6864;" href="javascript:void(0)" 
@@ -16,10 +16,10 @@
             {{ thread.votes }}
         </div>
     </div>
-    <div class="col-lg-1 listing-thumbnail-box">
+    <div class="col-lg-1 col-md-1 col-sm-1 listing-thumbnail-box">
         <img class="permalink-listing-image" src="{{ thread.thumbnail }}"/>
     </div>
-    <div class="col-lg-9 listing-text">
+    <div class="col-lg-10 col-md-10 col-sm-10 listing-text">
         {% if thread.link != "" %}
         <a href="{{ thread.link }}"><h2 class="listing-title">{{ thread.title }}<small> (url)</small></h2></a>
         {% else %}
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<div>
+<div class="row">
     <div class="col-lg-6 thread-comment-section">
         {% if user is defined and user != None %}
         <h5>Ответить:</h5>
@@ -54,16 +54,15 @@
     </div>
 </div>
 
-<div class="row"></div>
 <br>
 <div>
     <h4>Ответы</h4>
     <hr>
 </div>
 
-<div class="row comments-tree">
+<div class="comments-tree">
     {%- for comment in thread.get_comments() recursive %}
-        <div class="row comments-element" style="margin-left:{{ comment.get_margin_left() }}" 
+        <div class="comments-element" style="margin-left:{{ comment.get_margin_left() }}" 
             name="{{ comment.id }}-{{ loop.depth }}">
             <div class="comment-body">{{ comment.text|urlize|linebreaksbr }}</div>
             <div class="post-listing-meta">

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="col-lg-9 col-md-9 col-sm-7 col-xs-5 left-bar">
+<div class="row">
+<div class="col-lg-9 col-md-9 col-sm-12">
   {% block left %}
       {% if num_searches is defined %}
         <h4 class="highlight">Найдено результатов: {{ num_searches }}</h4>
@@ -10,7 +11,7 @@
       <div class="spacer"></div>
       {% for thread in thread_paginator.items %}
         <div name="{{ thread.id }}" class="row listing-row">
-          <div class="col-lg-1 listing-vote-box">  
+          <div class="col-lg-1 col-md-1 col-sm-1 listing-vote-box">
               <div class="">
                   {% if user is defined and user != None and thread.has_voted(user.id) %}
                       <a data-voted="true" style="color:#eb6864;" href="javascript:void(0)" 
@@ -24,10 +25,10 @@
                   {{ thread.votes }}
               </div>
           </div>
-          <div class="col-lg-1 listing-thumbnail-box">
+          <div class="col-lg-1 col-md-1 col-sm-1 listing-thumbnail-box">
               <img class="listing-image" src="{{ thread.show_thumbnail() }}"/>
           </div>
-          <div class="col-lg-8 listing-text">  
+          <div class="col-lg-10 col-md-10 col-sm-10 listing-text">  
               {% if thread.link %}
               <a href="{{ thread.link }}" class="listing-title">
               {% else %}
@@ -75,7 +76,7 @@
   {% endblock %}
 </div>
 
-<div class="col-lg-3 right-bar">
+<div class="col-lg-3 col-md-3 col-sm-12">
   {% block right %}
     {% if user is defined and user != None %}
         <!-- -->
@@ -119,14 +120,13 @@
 
     <h4 class="subreddit-desc">Субреддиты</h4>
     <ul id="subreddit-list">
-        {% for subreddit in subreddits[:10] %}
+        {% for subreddit in subreddits %}
         <li><a href="/r/{{ subreddit.name }}">{{ subreddit.name }}</a></li>
         {% endfor %}
     </ul>
-    <a class="align-right-col" href="{{ url_for('subreddits.view_all') }}">Показать все</a>    
   {% endblock %}
 </div>
-
+</div>
 {% endblock %}
 
 {% block scripts %}

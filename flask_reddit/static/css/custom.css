@@ -113,7 +113,6 @@ div.spacer {
 }
 
 .right-bar {
-    position: fixed;
     top: 80px;
     right: 100px;
 }

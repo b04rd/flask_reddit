@@ -3,9 +3,7 @@
 {% block left %}
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-9 user-profile-box">
-            <div class="row">
-                <div class="col-sm-6 col-md-8">
+        <div class="user-profile-box">
                     <h4>Пользователь: <u>{{ current_user.username }}</u></h4>
                     <p class="trophy-room">
                     Треды: <span class="red">{{ current_user.threads.all()|length() }}</span>, 
@@ -44,8 +42,6 @@
                     {% endfor %}
                         <!--<p>see more ...</p>-->
                     <br>
-                 </div>
-            </div>
         </div>
     </div>
 </div>
