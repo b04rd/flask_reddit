@@ -24,7 +24,7 @@ virtualenv для питона:
         $ sudo useradd -d /opt/board -M -r -s /bin/false board
         $ sudo mkdir /opt/board
         $ sudo chown ${USER}:board /opt/board
-        $ git clone --depth=1 https://github.com/bo4ard/flask_reddit.git /opt/board
+        $ git clone --depth=1 https://github.com/b04rd/flask_reddit.git /opt/board
 
 3.  Настраиваем MySQL: пишем конфиг.
 
